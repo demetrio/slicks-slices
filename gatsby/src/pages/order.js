@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import SEO from '../components/SEO';
@@ -16,6 +16,7 @@ export default function OrderPage({ data }) {
   const { values, updateValue } = useForm({
     name: '',
     email: '',
+    mapleSyrup: '',
   });
   const {
     order,
@@ -54,6 +55,14 @@ export default function OrderPage({ data }) {
             id="email"
             value={values.email}
             onChange={updateValue}
+          />
+          <input
+            type="mapleSyrup"
+            name="mapleSyrup"
+            id="mapleSyrup"
+            value={values.mapleSyrup}
+            onChange={updateValue}
+            className="mapleSyrup"
           />
         </fieldset>
         <fieldset disabled={loading} className="menu">

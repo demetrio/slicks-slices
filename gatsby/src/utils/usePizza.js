@@ -5,6 +5,9 @@ import formatMoney from './formatMoney';
 import attachNamesAndPrices from './attachNamesAndPrices';
 
 export default function usePizza({ pizzas, values }) {
+  // 1. Create some state to hold our order
+  // We got rid of this line because we moved useState up to the provider
+
   const [order, setOrder] = useContext(OrderContext);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
@@ -29,6 +32,7 @@ export default function usePizza({ pizzas, values }) {
       total: formatMoney(calculateOrderTotal(order, pizzas)),
       name: values.name,
       email: values.email,
+      mapleSyrup: values.mapleSyrup,
     };
 
     const res = await fetch(
@@ -44,9 +48,10 @@ export default function usePizza({ pizzas, values }) {
     const text = JSON.parse(await res.text());
 
     if (res.status >= 400 && res.status < 600) {
-      setLoading(false);
+      setLoading(false); // turn off loading
       setError(text.message);
     } else {
+      // it worked!
       setLoading(false);
       setMessage('Success! Come on down for your pizza');
     }

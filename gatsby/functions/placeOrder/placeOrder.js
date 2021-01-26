@@ -40,7 +40,14 @@ function wait(ms = 0) {
 
 exports.handler = async (event, context) => {
   const body = JSON.parse(event.body);
-  console.log(body);
+
+  if (body.mapleSyrup) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: 'There was an Error, please try again' }),
+    };
+  }
+
   const requiredFields = ['email', 'name', 'order'];
 
   for (const field of requiredFields) {
@@ -70,6 +77,7 @@ exports.handler = async (event, context) => {
     subject: 'New order!',
     html: generateOrderEmail({ order: body.order, total: body.total }),
   });
+
   return {
     statusCode: 200,
     body: JSON.stringify({ message: 'Success' }),
