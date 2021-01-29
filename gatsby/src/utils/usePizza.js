@@ -23,7 +23,6 @@ export default function usePizza({ pizzas, values }) {
 
   async function submitOrder(e) {
     e.preventDefault();
-    console.log(e);
     setLoading(true);
     setError(null);
 
